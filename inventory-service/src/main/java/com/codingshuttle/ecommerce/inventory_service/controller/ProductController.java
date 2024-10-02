@@ -27,9 +27,9 @@ public class ProductController {
 
 
     @GetMapping("/fetchOrders")
-    public String fetchFromOrdersService() {
+    public String fetchFromOrdersService(HttpServletRequest httpServletRequest) {
 
-
+        log.info(httpServletRequest.getHeader("x-custom-header"));
 
         ServiceInstance orderService = discoveryClient.getInstances("order-service").getFirst();
 
