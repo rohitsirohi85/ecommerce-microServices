@@ -37,7 +37,7 @@ public class OrdersService {
         return modelMapper.map(order, OrderRequestDto.class);
     }
 
-//    @Retry(name = "inventoryRetry", fallbackMethod = "createOrderFallback")
+    //    @Retry(name = "inventoryRetry", fallbackMethod = "createOrderFallback")
     @CircuitBreaker(name = "inventoryCircuitBreaker", fallbackMethod = "createOrderFallback")
 //    @RateLimiter(name = "inventoryRateLimiter", fallbackMethod = "createOrderFallback")
     public OrderRequestDto createOrder(OrderRequestDto orderRequestDto) {
@@ -56,11 +56,15 @@ public class OrdersService {
         return modelMapper.map(savedOrder, OrderRequestDto.class);
     }
 
-    public OrderRequestDto createOrderFallback(OrderRequestDto orderRequestDto, Throwable throwable) {
-        log.error("Fallback occurred due to : {}", throwable.getMessage());
+
+    public OrderRequestDto createOrderFallback(OrderRequestDto orderRequestDto , Throwable throwable) {
+        log.error("fallback occurred due to : {}",throwable.getMessage());
 
         return new OrderRequestDto();
     }
+
+
+
 
 }
 
