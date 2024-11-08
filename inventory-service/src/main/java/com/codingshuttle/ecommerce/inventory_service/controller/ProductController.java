@@ -25,20 +25,21 @@ public class ProductController {
     private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
 
+    private final OrdersFeignClient ordersFeignClient;
 
     @GetMapping("/fetchOrders")
     public String fetchFromOrdersService(HttpServletRequest httpServletRequest) {
 
         log.info(httpServletRequest.getHeader("x-custom-header"));
 
-        ServiceInstance orderService = discoveryClient.getInstances("order-service").getFirst();
+//        ServiceInstance orderService = discoveryClient.getInstances("order-service").getFirst();
 
-        return restClient.get()
-                .uri(orderService.getUri()+"/orders/core/helloOrders")
-                .retrieve()
-                .body(String.class);
+//        return restClient.get()
+//                .uri(orderService.getUri()+"/orders/core/helloOrders")
+//                .retrieve()
+//                .body(String.class);
 
-
+        return ordersFeignClient.helloOrders();
     }
 
     @GetMapping
