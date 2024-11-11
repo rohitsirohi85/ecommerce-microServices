@@ -6,6 +6,7 @@ import com.codingshuttle.ecommerce.order_service.service.OrdersService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,12 @@ import java.util.List;
 public class OrdersController {
 
     private final OrdersService orderService;
+    @Value("${my.variable}")
+    private String myVariable;
 
     @GetMapping("/helloOrders")
     public String helloOrders() {
-        return "Hello from Orders Service";
+        return "Hello from Orders Service,my variable is:"+myVariable;
     }
 
     @PostMapping("/create-order")
